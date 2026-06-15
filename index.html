@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>StoneWorld — выживалка / prison / SMP</title>
+    <meta name="description" content="StoneWorld - уникальный Minecraft проект с режимами выживание, prison и SMP. Античит, адекватная администрация, ивенты. Присоединяйся!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0e17;
+            font-family: 'Inter', sans-serif;
+            color: #edf2ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #10141f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff8c2e;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(11, 14, 23, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 140, 46, 0.3);
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            font-size: 32px;
+            color: #ff8c2e;
+            filter: drop-shadow(0 0 6px #ff8c2e80);
+        }
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 30%, #ffaa60 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: #cdd9ff;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #ff8c2e;
+        }
+        .copy-ip-btn {
+            background: rgba(255, 140, 46, 0.12);
+            border: 1px solid #ff8c2e;
+            padding: 8px 20px;
+            border-radius: 60px;
+            color: #ffaa60;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        .copy-ip-btn:hover {
+            background: #ff8c2e;
+            color: #0b0e17;
+            box-shadow: 0 0 12px #ff8c2e;
+        }
+
+        /* hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 54px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ffb05a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 20px;
+            color: #a5b3d9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .server-badge {
+            display: inline-flex;
+            gap: 12px;
+            background: #13182a;
+            padding: 12px 28px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,140,46,0.4);
+        }
+        .server-ip {
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* карточки */
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 48px 0 32px;
+            text-align: center;
+        }
+        .section-title span {
+            background: linear-gradient(135deg, #ffaa60, #ff7a1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .worlds-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            margin: 40px 0;
+        }
+        .world-card {
+            background: #101522;
+            border-radius: 32px;
+            padding: 28px 24px;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #20273d;
+        }
+        .world-card:hover {
+            transform: translateY(-6px);
+            border-color: #ff8c2e;
+            box-shadow: 0 16px 30px -12px rgba(0,0,0,0.5);
+        }
+        .world-icon {
+            font-size: 48px;
+            color: #ff8c2e;
+            margin-bottom: 16px;
+        }
+        .world-card h3 {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+        .world-card p {
+            color: #99a7d4;
+            font-size: 15px;
+        }
+
+        /* админ + античит блок */
+        .feature-block {
+            background: linear-gradient(145deg, #0f1422, #0a0e18);
+            border-radius: 48px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid #232b44;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .feature-text {
+            flex: 2;
+        }
+        .feature-text h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        .feature-text ul {
+            list-style: none;
+            margin-top: 16px;
+        }
+        .feature-text li {
+            margin: 12px 0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .feature-text li i {
+            color: #ff8c2e;
+            width: 24px;
+        }
+        .feature-icon {
+            flex: 1;
+            text-align: center;
+            font-size: 90px;
+            color: #ff8c2e;
+            opacity: 0.8;
+        }
+
+        /* блок подключения */
+        .connect-card {
+            background: #101522;
+            border-radius: 32px;
+            padding: 32px;
+            margin: 48px 0;
+            border: 1px solid #2a314b;
+        }
+        .connect-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .connect-method {
+            flex: 1;
+            background: #0c1020;
+            padding: 22px;
+            border-radius: 24px;
+        }
+        .connect-method h4 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            color: #ffaa60;
+        }
+        .code-block {
+            background: #05070f;
+            padding: 14px;
+            border-radius: 16px;
+            font-family: monospace;
+            font-size: 15px;
+            word-break: break-all;
+            margin: 12px 0;
+            border-left: 4px solid #ff8c2e;
+        }
+        .small-note {
+            font-size: 13px;
+            color: #8f9ac0;
+            margin-top: 12px;
+        }
+        .btn-copy-mini {
+            background: #1f253e;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.1s;
+        }
+        .btn-copy-mini:hover {
+            background: #ff8c2e;
+            color: #0b0e17;
+        }
+
+        /* футер */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #1f253e;
+            margin-top: 40px;
+            color: #7b86ad;
+        }
+
+        @media (max-width: 800px) {
+            .hero h1 { font-size: 38px; }
+            .header-content { flex-direction: column; }
+            .world-card { width: 100%; max-width: 320px; }
+            .feature-block { flex-direction: column; text-align: center; }
+            .connect-row { flex-direction: column; }
+        }
+        button {
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <div class="logo">
+            <i class="fas fa-gem logo-icon"></i>
+            <div class="logo-text">STONEWORLD</div>
+        </div>
+        <div class="nav-links">
+            <a href="#worlds">Миры</a>
+            <a href="#connect">Подключение</a>
+            <a href="#admin">Администрация</a>
+        </div>
+        <button class="copy-ip-btn" id="copyMainIpBtn">
+            <i class="fas fa-copy"></i> Копировать IP
+        </button>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>StoneWorld</h1>
+            <p>Выживалка · Prison · SMP · Античит · Адекватный админ состав</p>
+            <div class="server-badge">
+                <span class="server-ip" id="mainIpDisplay">StoneWorld.proximamp.com</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="https://discord.gg/e6SXcC7WgS" target="_blank" style="background:#5865F2; padding:10px 24px; border-radius:40px; color:white; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:8px; margin:8px;"><i class="fab fa-discord"></i> Discord сервер</a>
+            </div>
+        </div>
+
+        <!-- Миры -->
+        <div id="worlds">
+            <div class="section-title">Наши <span>миры</span></div>
+            <div class="worlds-grid">
+                <div class="world-card">
+                    <div class="world-icon"><i class="fas fa-tree"></i></div>
+                    <h3>Основной мир</h3>
+                    <p>Классическое выживание с экономикой, приватами и интересной генерацией.</p>
+                </div>
+                <div class="world-card">
+                    <div class="world-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Ивентовый мир</h3>
+                    <p>Еженедельные ивенты, PvP-турниры, квесты и уникальные награды.</p>
+                </div>
+                <div class="world-card">
+                    <div class="world-icon"><i class="fas fa-users"></i></div>
+                    <h3>Мир SMP</h3>
+                    <p>Полное ванильное взаимодействие, дружелюбное комьюнити и постройки.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Администрация + античит -->
+        <div id="admin">
+            <div class="feature-block">
+                <div class="feature-text">
+                    <h3><i class="fas fa-shield-alt"></i> Хорошая администрация + античит</h3>
+                    <p>Мы ценим каждого игрока. В StoneWorld работают только опытные администраторы и модераторы, которые всегда готовы помочь. Никакого токсичного вайба — только честная игра.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Современный античит (полёт/скорость/килл аура)</li>
+                        <li><i class="fas fa-check-circle"></i> Система жалоб и быстрая реакция</li>
+                        <li><i class="fas fa-check-circle"></i> Регулярные ивенты и поддержка</li>
+                        <li><i class="fas fa-check-circle"></i> Прозрачная экономика без доната-имбы</li>
+                    </ul>
+                </div>
+                <div class="feature-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подключение -->
+        <div id="connect">
+            <div class="section-title">Как <span>играть</span></div>
+            <div class="connect-card">
+                <div class="connect-row">
+                    <!-- Обычный вход -->
+                    <div class="connect-method">
+                        <h4><i class="fas fa-globe"></i> Прямое подключение</h4>
+                        <div class="code-block" id="normalIpText">StoneWorld.proximamp.com</div>
+                        <button class="btn-copy-mini" data-copy="StoneWorld.proximamp.com"><i class="fas fa-copy"></i> Копировать IP</button>
+                        <div class="small-note">Порт стандартный: 25565</div>
+                    </div>
+                    <!-- Radmin -->
+                    <div class="connect-method">
+                        <h4><i class="fas fa-network-wired"></i> Radmin VPN</h4>
+                        <div><strong>Название сети:</strong> super34k</div>
+                        <div><strong>Пароль сети:</strong> 123456</div>
+                        <div class="code-block" id="radminIpText">26.20.131.82:25565</div>
+                        <button class="btn-copy-mini" data-copy="26.20.131.82:25565"><i class="fas fa-copy"></i> Копировать IP:порт</button>
+                        <div class="small-note">Сначала подключись к Radmin сети super34k, затем введи этот IP в Minecraft.</div>
+                    </div>
+                </div>
+                <div style="margin-top: 28px; background: #0a0e1a; border-radius: 20px; padding: 16px; text-align: center;">
+                    <i class="fas fa-info-circle"></i> Если не заходит — возможно, хост временно не открыл сервер. Проверь <a href="https://discord.gg/e6SXcC7WgS" target="_blank" style="color:#ffaa60;">Discord</a> для актуального статуса.
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p><i class="fas fa-crown"></i> StoneWorld — честный геймплей, каменное сердце сообщества <i class="fas fa-dragon"></i></p>
+        <p style="margin-top: 12px;">IP: StoneWorld.proximamp.com | Radmin: super34k / 123456</p>
+    </div>
+</footer>
+
+<script>
+    // универсальное копирование
+    function copyToClipboard(text, buttonElement = null) {
+        navigator.clipboard.writeText(text).then(() => {
+            if (buttonElement) {
+                const originalText = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalText;
+                }, 1800);
+            } else {
+                alert(`Скопировано: ${text}`);
+            }
+        }).catch(() => {
+            alert('Не удалось скопировать вручную');
+        });
+    }
+
+    // главная кнопка в хедере (копирует основной IP)
+    const mainCopyBtn = document.getElementById('copyMainIpBtn');
+    const mainIp = "StoneWorld.proximamp.com";
+    if(mainCopyBtn) {
+        mainCopyBtn.addEventListener('click', () => {
+            copyToClipboard(mainIp, mainCopyBtn);
+        });
+    }
+
+    // все мини-кнопки с data-copy
+    const copyButtons = document.querySelectorAll('.btn-copy-mini');
+    copyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const textToCopy = btn.getAttribute('data-copy');
+            if(textToCopy) {
+                copyToClipboard(textToCopy, btn);
+            }
+        });
+    });
+
+    // дополнительно: можно скопировать по клику на отображение IP в hero? сделаем для удобства
+    const ipDisplaySpan = document.getElementById('mainIpDisplay');
+    if(ipDisplaySpan) {
+        ipDisplaySpan.style.cursor = 'pointer';
+        ipDisplaySpan.addEventListener('click', () => {
+            copyToClipboard(mainIp, null);
+        });
+    }
+</script>
+</body>
+</html>
