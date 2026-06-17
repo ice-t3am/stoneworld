@@ -290,6 +290,144 @@
             color: #0b0e17;
         }
 
+        /* отзывы */
+        .reviews-block {
+            background: #101522;
+            border-radius: 32px;
+            padding: 40px;
+            margin: 48px 0;
+            border: 1px solid #2a314b;
+        }
+        .review-form {
+            background: #0c1020;
+            padding: 28px;
+            border-radius: 24px;
+            margin-top: 24px;
+        }
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            background: #05070f;
+            border: 1px solid #2a314b;
+            border-radius: 16px;
+            padding: 14px 18px;
+            color: #edf2ff;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            margin-bottom: 16px;
+            transition: 0.2s;
+        }
+        .review-form input:focus,
+        .review-form textarea:focus {
+            border-color: #ff8c2e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 46, 0.2);
+        }
+        .review-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .review-form .rating-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .review-form .rating-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .review-form .rating-group input[type="radio"] {
+            display: none;
+        }
+        .review-form .rating-group i {
+            color: #3a4060;
+            transition: 0.2s;
+        }
+        .review-form .rating-group input[type="radio"]:checked + i {
+            color: #ff8c2e;
+        }
+        .review-form .rating-group label:hover i {
+            color: #ffaa60;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #ff8c2e, #ff6a00);
+            border: none;
+            color: white;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 24px rgba(255, 140, 46, 0.4);
+        }
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .review-list {
+            margin-top: 32px;
+        }
+        .review-item {
+            background: #0c1020;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #ff8c2e;
+        }
+        .review-item .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .review-item .review-name {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .review-item .review-stars {
+            color: #ff8c2e;
+        }
+        .review-item .review-text {
+            color: #a5b3d9;
+            font-size: 15px;
+        }
+        .review-item .review-time {
+            font-size: 12px;
+            color: #5a6485;
+        }
+        .review-empty {
+            text-align: center;
+            color: #5a6485;
+            padding: 30px 0;
+        }
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a2138;
+            padding: 16px 24px;
+            border-radius: 16px;
+            border-left: 4px solid #ff8c2e;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            z-index: 999;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .toast-message.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
         /* футер */
         .footer {
             text-align: center;
@@ -305,6 +443,7 @@
             .world-card { width: 100%; max-width: 320px; }
             .feature-block { flex-direction: column; text-align: center; }
             .connect-row { flex-direction: column; }
+            .reviews-block { padding: 20px; }
         }
         button {
             background: none;
@@ -325,6 +464,7 @@
             <a href="#worlds">Миры</a>
             <a href="#connect">Подключение</a>
             <a href="#admin">Администрация</a>
+            <a href="#reviews">Отзывы</a>
         </div>
         <button class="copy-ip-btn" id="copyMainIpBtn">
             <i class="fas fa-copy"></i> Копировать IP
@@ -353,17 +493,17 @@
                 <div class="world-card">
                     <div class="world-icon"><i class="fas fa-tree"></i></div>
                     <h3>Основной мир</h3>
-                    <p>Классика нашего сервера. Это то, на чём завязана экономика и камушки.</p>
+                    <p>Классическое выживание с экономикой, приватами и интересной генерацией.</p>
                 </div>
                 <div class="world-card">
                     <div class="world-icon"><i class="fas fa-calendar-alt"></i></div>
                     <h3>Ивентовый мир</h3>
-                    <p>Выживание в обычной коробке! С нуля до незерки!</p>
+                    <p>Еженедельные ивенты, PvP-турниры, квесты и уникальные награды.</p>
                 </div>
                 <div class="world-card">
                     <div class="world-icon"><i class="fas fa-users"></i></div>
                     <h3>Мир SMP</h3>
-                    <p>Полное ванильное выживание, никаких команд!</p>
+                    <p>Полное ванильное взаимодействие, дружелюбное комьюнити и постройки.</p>
                 </div>
             </div>
         </div>
@@ -375,10 +515,10 @@
                     <h3><i class="fas fa-shield-alt"></i> Хорошая администрация + античит</h3>
                     <p>Мы ценим каждого игрока. В StoneWorld работают только опытные администраторы и модераторы, которые всегда готовы помочь. Никакого токсичного вайба — только честная игра.</p>
                     <ul>
-                        <li><i class="fas fa-check-circle"></i> Три античита: не детектит один? Задетектит другой. А если вдруг два других античита не смогут обнаружить, это сделает третий античит.</li>
+                        <li><i class="fas fa-check-circle"></i> Современный античит (полёт/скорость/килл аура)</li>
                         <li><i class="fas fa-check-circle"></i> Система жалоб и быстрая реакция</li>
-                        <li><i class="fas fa-check-circle"></i> Крутые пацанчики (ровные тоже есть, например l4nchqqk)</li>
-                        <li><i class="fas fa-check-circle"></i> Экономика без доната</li>
+                        <li><i class="fas fa-check-circle"></i> Регулярные ивенты и поддержка</li>
+                        <li><i class="fas fa-check-circle"></i> Прозрачная экономика без доната-имбы</li>
                     </ul>
                 </div>
                 <div class="feature-icon">
@@ -414,6 +554,35 @@
                 </div>
             </div>
         </div>
+
+        <!-- Отзывы -->
+        <div id="reviews">
+            <div class="section-title">Отзывы <span>игроков</span></div>
+            <div class="reviews-block">
+                <!-- Форма отправки -->
+                <div class="review-form">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-pen"></i> Оставить отзыв</h3>
+                    <input type="text" id="reviewName" placeholder="Ваш никнейм" maxlength="32">
+                    <div class="rating-group" id="ratingGroup">
+                        <label><input type="radio" name="rating" value="5"> <i class="fas fa-star"></i>5</label>
+                        <label><input type="radio" name="rating" value="4"> <i class="fas fa-star"></i>4</label>
+                        <label><input type="radio" name="rating" value="3"> <i class="fas fa-star"></i>3</label>
+                        <label><input type="radio" name="rating" value="2"> <i class="fas fa-star"></i>2</label>
+                        <label><input type="radio" name="rating" value="1"> <i class="fas fa-star"></i>1</label>
+                    </div>
+                    <textarea id="reviewText" placeholder="Расскажите о своём опыте игры на StoneWorld..." maxlength="1000"></textarea>
+                    <button class="btn-submit" id="submitReviewBtn"><i class="fas fa-paper-plane"></i> Отправить отзыв</button>
+                </div>
+
+                <!-- Список отзывов -->
+                <div class="review-list" id="reviewList">
+                    <div class="review-empty">
+                        <i class="fas fa-comment-dots" style="font-size: 40px; opacity: 0.3; display: block; margin-bottom: 12px;"></i>
+                        Пока нет отзывов. Будь первым!
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -424,8 +593,16 @@
     </div>
 </footer>
 
+<!-- Toast уведомление -->
+<div class="toast-message" id="toastMessage">
+    <i class="fas fa-check-circle" style="color: #4ade80;"></i> <span id="toastText">Отзыв отправлен!</span>
+</div>
+
 <script>
-    // универсальное копирование
+    // === Конфиг ===
+    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1516729440468602930/jDG9tx82VXWhD_NuJFhi7fGsn_FDGT2QVVHlwKGHN0jn2iySr2Vt2TB_rnZgP_6x4pEs';
+
+    // === Копирование ===
     function copyToClipboard(text, buttonElement = null) {
         navigator.clipboard.writeText(text).then(() => {
             if (buttonElement) {
@@ -435,14 +612,30 @@
                     buttonElement.innerHTML = originalText;
                 }, 1800);
             } else {
-                alert(`Скопировано: ${text}`);
+                showToast('Скопировано: ' + text);
             }
         }).catch(() => {
-            alert('Не удалось скопировать вручную');
+            showToast('Не удалось скопировать');
         });
     }
 
-    // главная кнопка в хедере (копирует основной IP)
+    // === Toast ===
+    function showToast(text, isError = false) {
+        const toast = document.getElementById('toastMessage');
+        const toastText = document.getElementById('toastText');
+        toastText.textContent = text;
+        if (isError) {
+            toast.style.borderLeftColor = '#ef4444';
+        } else {
+            toast.style.borderLeftColor = '#ff8c2e';
+        }
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    }
+
+    // === Кнопки копирования ===
     const mainCopyBtn = document.getElementById('copyMainIpBtn');
     const mainIp = "StoneWorld.proximamp.com";
     if(mainCopyBtn) {
@@ -451,7 +644,6 @@
         });
     }
 
-    // все мини-кнопки с data-copy
     const copyButtons = document.querySelectorAll('.btn-copy-mini');
     copyButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -462,7 +654,6 @@
         });
     });
 
-    // дополнительно: можно скопировать по клику на отображение IP в hero? сделаем для удобства
     const ipDisplaySpan = document.getElementById('mainIpDisplay');
     if(ipDisplaySpan) {
         ipDisplaySpan.style.cursor = 'pointer';
@@ -470,6 +661,172 @@
             copyToClipboard(mainIp, null);
         });
     }
+
+    // === Отзывы ===
+    // Загружаем сохранённые отзывы из localStorage
+    let reviews = JSON.parse(localStorage.getItem('stoneworld_reviews') || '[]');
+
+    function renderReviews() {
+        const list = document.getElementById('reviewList');
+        if (reviews.length === 0) {
+            list.innerHTML = `
+                <div class="review-empty">
+                    <i class="fas fa-comment-dots" style="font-size: 40px; opacity: 0.3; display: block; margin-bottom: 12px;"></i>
+                    Пока нет отзывов. Будь первым!
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+        // показываем последние 10 отзывов (сначала новые)
+        const sorted = [...reviews].reverse().slice(0, 10);
+        sorted.forEach(r => {
+            const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+            const time = new Date(r.timestamp).toLocaleDateString('ru-RU', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+            html += `
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="review-name">${escapeHtml(r.name)}</span>
+                        <span class="review-stars">${stars}</span>
+                    </div>
+                    <div class="review-text">${escapeHtml(r.text)}</div>
+                    <div class="review-time">${time}</div>
+                </div>
+            `;
+        });
+        list.innerHTML = html;
+    }
+
+    // Простой экранинг для безопасности
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Отправка в Discord
+    async function sendReviewToDiscord(name, rating, text) {
+        const embed = {
+            title: '⭐ Новый отзыв на StoneWorld',
+            color: 0xff8c2e,
+            fields: [
+                {
+                    name: '👤 Игрок',
+                    value: name || 'Аноним',
+                    inline: true
+                },
+                {
+                    name: '⭐ Оценка',
+                    value: '★'.repeat(rating) + '☆'.repeat(5 - rating),
+                    inline: true
+                },
+                {
+                    name: '💬 Отзыв',
+                    value: text || '(без текста)'
+                }
+            ],
+            footer: {
+                text: 'StoneWorld • Отзывы игроков'
+            },
+            timestamp: new Date().toISOString()
+        };
+
+        const payload = {
+            embeds: [embed]
+        };
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return true;
+        } catch (error) {
+            console.error('Ошибка отправки в Discord:', error);
+            return false;
+        }
+    }
+
+    // Обработчик отправки отзыва
+    document.getElementById('submitReviewBtn').addEventListener('click', async function() {
+        const nameInput = document.getElementById('reviewName');
+        const textInput = document.getElementById('reviewText');
+        const ratingInput = document.querySelector('input[name="rating"]:checked');
+
+        const name = nameInput.value.trim() || 'Аноним';
+        const text = textInput.value.trim();
+        const rating = ratingInput ? parseInt(ratingInput.value) : 0;
+
+        if (rating === 0) {
+            showToast('❌ Поставьте оценку!', true);
+            return;
+        }
+
+        if (!text) {
+            showToast('❌ Напишите текст отзыва!', true);
+            return;
+        }
+
+        // Блокируем кнопку
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+
+        // Отправляем в Discord
+        const success = await sendReviewToDiscord(name, rating, text);
+
+        if (success) {
+            // Сохраняем в localStorage
+            const newReview = {
+                name: name,
+                rating: rating,
+                text: text,
+                timestamp: Date.now()
+            };
+            reviews.push(newReview);
+            localStorage.setItem('stoneworld_reviews', JSON.stringify(reviews));
+            renderReviews();
+
+            // Очищаем форму
+            nameInput.value = '';
+            textInput.value = '';
+            if (ratingInput) ratingInput.checked = false;
+
+            showToast('✅ Отзыв отправлен в Discord!');
+        } else {
+            showToast('❌ Ошибка отправки. Попробуйте позже.', true);
+        }
+
+        // Разблокируем кнопку
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить отзыв';
+    });
+
+    // Инициализация
+    renderReviews();
+
+    // Звёзды при наведении
+    document.querySelectorAll('.rating-group label').forEach(label => {
+        label.addEventListener('mouseenter', function() {
+            const stars = this.querySelectorAll('i');
+            stars.forEach(s => s.style.color = '#ffaa60');
+        });
+        label.addEventListener('mouseleave', function() {
+            const stars = this.querySelectorAll('i');
+            if (!this.querySelector('input:checked')) {
+                stars.forEach(s => s.style.color = '#3a4060');
+            }
+        });
+    });
 </script>
 </body>
 </html>
