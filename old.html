@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>StoneWorld — выживалка / prison / SMP</title>
+    <meta name="description" content="StoneWorld - уникальный Minecraft проект с режимами выживание, prison и SMP. Античит, адекватная администрация, ивенты. Присоединяйся!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0e17;
+            font-family: 'Inter', sans-serif;
+            color: #edf2ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #10141f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff8c2e;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(11, 14, 23, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 140, 46, 0.3);
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            font-size: 32px;
+            color: #ff8c2e;
+            filter: drop-shadow(0 0 6px #ff8c2e80);
+        }
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 30%, #ffaa60 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: #cdd9ff;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #ff8c2e;
+        }
+        .copy-ip-btn {
+            background: rgba(255, 140, 46, 0.12);
+            border: 1px solid #ff8c2e;
+            padding: 8px 20px;
+            border-radius: 60px;
+            color: #ffaa60;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        .copy-ip-btn:hover {
+            background: #ff8c2e;
+            color: #0b0e17;
+            box-shadow: 0 0 12px #ff8c2e;
+        }
+
+        /* hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 54px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ffb05a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 20px;
+            color: #a5b3d9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .server-badge {
+            display: inline-flex;
+            gap: 12px;
+            background: #13182a;
+            padding: 12px 28px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,140,46,0.4);
+        }
+        .server-ip {
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* карточки */
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 48px 0 32px;
+            text-align: center;
+        }
+        .section-title span {
+            background: linear-gradient(135deg, #ffaa60, #ff7a1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .worlds-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            margin: 40px 0;
+        }
+        .world-card {
+            background: #101522;
+            border-radius: 32px;
+            padding: 28px 24px;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #20273d;
+        }
+        .world-card:hover {
+            transform: translateY(-6px);
+            border-color: #ff8c2e;
+            box-shadow: 0 16px 30px -12px rgba(0,0,0,0.5);
+        }
+        .world-icon {
+            font-size: 48px;
+            color: #ff8c2e;
+            margin-bottom: 16px;
+        }
+        .world-card h3 {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+        .world-card p {
+            color: #99a7d4;
+            font-size: 15px;
+        }
+
+        /* админ + античит блок */
+        .feature-block {
+            background: linear-gradient(145deg, #0f1422, #0a0e18);
+            border-radius: 48px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid #232b44;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .feature-text {
+            flex: 2;
+        }
+        .feature-text h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        .feature-text ul {
+            list-style: none;
+            margin-top: 16px;
+        }
+        .feature-text li {
+            margin: 12px 0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .feature-text li i {
+            color: #ff8c2e;
+            width: 24px;
+        }
+        .feature-icon {
+            flex: 1;
+            text-align: center;
+            font-size: 90px;
+            color: #ff8c2e;
+            opacity: 0.8;
+        }
+
+        /* блок подключения */
+        .connect-card {
+            background: #101522;
+            border-radius: 32px;
+            padding: 32px;
+            margin: 48px 0;
+            border: 1px solid #2a314b;
+        }
+        .connect-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .connect-method {
+            flex: 1;
+            background: #0c1020;
+            padding: 22px;
+            border-radius: 24px;
+        }
+        .connect-method h4 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            color: #ffaa60;
+        }
+        .code-block {
+            background: #05070f;
+            padding: 14px;
+            border-radius: 16px;
+            font-family: monospace;
+            font-size: 15px;
+            word-break: break-all;
+            margin: 12px 0;
+            border-left: 4px solid #ff8c2e;
+        }
+        .small-note {
+            font-size: 13px;
+            color: #8f9ac0;
+            margin-top: 12px;
+        }
+        .btn-copy-mini {
+            background: #1f253e;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.1s;
+        }
+        .btn-copy-mini:hover {
+            background: #ff8c2e;
+            color: #0b0e17;
+        }
+
+        /* отзывы */
+        .reviews-block {
+            background: #101522;
+            border-radius: 32px;
+            padding: 40px;
+            margin: 48px 0;
+            border: 1px solid #2a314b;
+        }
+        .review-form {
+            background: #0c1020;
+            padding: 28px;
+            border-radius: 24px;
+            margin-top: 24px;
+        }
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            background: #05070f;
+            border: 1px solid #2a314b;
+            border-radius: 16px;
+            padding: 14px 18px;
+            color: #edf2ff;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            margin-bottom: 16px;
+            transition: 0.2s;
+        }
+        .review-form input:focus,
+        .review-form textarea:focus {
+            border-color: #ff8c2e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 46, 0.2);
+        }
+        .review-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .review-form .rating-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .review-form .rating-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .review-form .rating-group input[type="radio"] {
+            display: none;
+        }
+        .review-form .rating-group i {
+            color: #3a4060;
+            transition: 0.2s;
+        }
+        .review-form .rating-group input[type="radio"]:checked + i {
+            color: #ff8c2e;
+        }
+        .review-form .rating-group label:hover i {
+            color: #ffaa60;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #ff8c2e, #ff6a00);
+            border: none;
+            color: white;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 24px rgba(255, 140, 46, 0.4);
+        }
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .review-list {
+            margin-top: 32px;
+        }
+        .review-item {
+            background: #0c1020;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #ff8c2e;
+        }
+        .review-item .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .review-item .review-name {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .review-item .review-stars {
+            color: #ff8c2e;
+        }
+        .review-item .review-text {
+            color: #a5b3d9;
+            font-size: 15px;
+        }
+        .review-item .review-time {
+            font-size: 12px;
+            color: #5a6485;
+        }
+        .review-empty {
+            text-align: center;
+            color: #5a6485;
+            padding: 30px 0;
+        }
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a2138;
+            padding: 16px 24px;
+            border-radius: 16px;
+            border-left: 4px solid #ff8c2e;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            z-index: 999;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .toast-message.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* футер */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #1f253e;
+            margin-top: 40px;
+            color: #7b86ad;
+        }
+
+        @media (max-width: 800px) {
+            .hero h1 { font-size: 38px; }
+            .header-content { flex-direction: column; }
+            .world-card { width: 100%; max-width: 320px; }
+            .feature-block { flex-direction: column; text-align: center; }
+            .connect-row { flex-direction: column; }
+            .reviews-block { padding: 20px; }
+        }
+        button {
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <div class="logo">
+            <i class="fas fa-gem logo-icon"></i>
+            <div class="logo-text">STONEWORLD</div>
+        </div>
+        <div class="nav-links">
+            <a href="#worlds">Миры</a>
+            <a href="#connect">Подключение</a>
+            <a href="#admin">Администрация</a>
+            <a href="#reviews">Отзывы</a>
+        </div>
+        <button class="copy-ip-btn" id="copyMainIpBtn">
+            <i class="fas fa-copy"></i> Копировать IP
+        </button>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>StoneWorld</h1>
+            <p>Выживалка · Prison · SMP · Античит · Адекватный админ состав</p>
+            <div class="server-badge">
+                <span class="server-ip" id="mainIpDisplay">StoneWorld.proximamp.com</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="https://discord.gg/e6SXcC7WgS" target="_blank" style="background:#5865F2; padding:10px 24px; border-radius:40px; color:white; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:8px; margin:8px;"><i class="fab fa-discord"></i> Discord сервер</a>
+            </div>
+        </div>
+
+        <!-- Миры -->
+        <div id="worlds">
+            <div class="section-title">Наши <span>миры</span></div>
+            <div class="worlds-grid">
+                <div class="world-card">
+                    <div class="world-icon"><i class="fas fa-tree"></i></div>
+                    <h3>Основной мир</h3>
+                    <p>Классическое выживание с экономикой, приватами и интересной генерацией.</p>
+                </div>
+                <div class="world-card">
+                    <div class="world-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Ивентовый мир</h3>
+                    <p>Еженедельные ивенты, PvP-турниры, квесты и уникальные награды.</p>
+                </div>
+                <div class="world-card">
+                    <div class="world-icon"><i class="fas fa-users"></i></div>
+                    <h3>Мир SMP</h3>
+                    <p>Полное ванильное взаимодействие, дружелюбное комьюнити и постройки.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Администрация + античит -->
+        <div id="admin">
+            <div class="feature-block">
+                <div class="feature-text">
+                    <h3><i class="fas fa-shield-alt"></i> Хорошая администрация + античит</h3>
+                    <p>Мы ценим каждого игрока. В StoneWorld работают только опытные администраторы и модераторы, которые всегда готовы помочь. Никакого токсичного вайба — только честная игра.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Современный античит (полёт/скорость/килл аура)</li>
+                        <li><i class="fas fa-check-circle"></i> Система жалоб и быстрая реакция</li>
+                        <li><i class="fas fa-check-circle"></i> Регулярные ивенты и поддержка</li>
+                        <li><i class="fas fa-check-circle"></i> Прозрачная экономика без доната-имбы</li>
+                    </ul>
+                </div>
+                <div class="feature-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подключение -->
+        <div id="connect">
+            <div class="section-title">Как <span>играть</span></div>
+            <div class="connect-card">
+                <div class="connect-row">
+                    <!-- Обычный вход -->
+                    <div class="connect-method">
+                        <h4><i class="fas fa-globe"></i> Прямое подключение</h4>
+                        <div class="code-block" id="normalIpText">StoneWorld.proximamp.com</div>
+                        <button class="btn-copy-mini" data-copy="StoneWorld.proximamp.com"><i class="fas fa-copy"></i> Копировать IP</button>
+                        <div class="small-note">Порт стандартный: 25565</div>
+                    </div>
+                    <!-- Radmin -->
+                    <div class="connect-method">
+                        <h4><i class="fas fa-network-wired"></i> Radmin VPN</h4>
+                        <div><strong>Название сети:</strong> super34k</div>
+                        <div><strong>Пароль сети:</strong> 123456</div>
+                        <div class="code-block" id="radminIpText">26.20.131.82:25565</div>
+                        <button class="btn-copy-mini" data-copy="26.20.131.82:25565"><i class="fas fa-copy"></i> Копировать IP:порт</button>
+                        <div class="small-note">Сначала подключись к Radmin сети super34k, затем введи этот IP в Minecraft.</div>
+                    </div>
+                </div>
+                <div style="margin-top: 28px; background: #0a0e1a; border-radius: 20px; padding: 16px; text-align: center;">
+                    <i class="fas fa-info-circle"></i> Если не заходит — возможно, хост временно не открыл сервер. Проверь <a href="https://discord.gg/e6SXcC7WgS" target="_blank" style="color:#ffaa60;">Discord</a> для актуального статуса.
+                </div>
+            </div>
+        </div>
+
+        <!-- Отзывы -->
+        <div id="reviews">
+            <div class="section-title">Отзывы <span>игроков</span></div>
+            <div class="reviews-block">
+                <!-- Форма отправки -->
+                <div class="review-form">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-pen"></i> Оставить отзыв</h3>
+                    <input type="text" id="reviewName" placeholder="Ваш никнейм" maxlength="32">
+                    <div class="rating-group" id="ratingGroup">
+                        <label><input type="radio" name="rating" value="5"> <i class="fas fa-star"></i>5</label>
+                        <label><input type="radio" name="rating" value="4"> <i class="fas fa-star"></i>4</label>
+                        <label><input type="radio" name="rating" value="3"> <i class="fas fa-star"></i>3</label>
+                        <label><input type="radio" name="rating" value="2"> <i class="fas fa-star"></i>2</label>
+                        <label><input type="radio" name="rating" value="1"> <i class="fas fa-star"></i>1</label>
+                    </div>
+                    <textarea id="reviewText" placeholder="Расскажите о своём опыте игры на StoneWorld..." maxlength="1000"></textarea>
+                    <button class="btn-submit" id="submitReviewBtn"><i class="fas fa-paper-plane"></i> Отправить отзыв</button>
+                </div>
+
+                <!-- Список отзывов -->
+                <div class="review-list" id="reviewList">
+                    <div class="review-empty">
+                        <i class="fas fa-comment-dots" style="font-size: 40px; opacity: 0.3; display: block; margin-bottom: 12px;"></i>
+                        Пока нет отзывов. Будь первым!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p><i class="fas fa-crown"></i> StoneWorld — честный геймплей, каменное сердце сообщества <i class="fas fa-dragon"></i></p>
+        <p style="margin-top: 12px;">IP: StoneWorld.proximamp.com | Radmin: super34k / 123456</p>
+    </div>
+</footer>
+
+<!-- Toast уведомление -->
+<div class="toast-message" id="toastMessage">
+    <i class="fas fa-check-circle" style="color: #4ade80;"></i> <span id="toastText">Отзыв отправлен!</span>
+</div>
+
+<script>
+    // === Конфиг ===
+    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1516729440468602930/jDG9tx82VXWhD_NuJFhi7fGsn_FDGT2QVVHlwKGHN0jn2iySr2Vt2TB_rnZgP_6x4pEs';
+
+    // === Копирование ===
+    function copyToClipboard(text, buttonElement = null) {
+        navigator.clipboard.writeText(text).then(() => {
+            if (buttonElement) {
+                const originalText = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalText;
+                }, 1800);
+            } else {
+                showToast('Скопировано: ' + text);
+            }
+        }).catch(() => {
+            showToast('Не удалось скопировать');
+        });
+    }
+
+    // === Toast ===
+    function showToast(text, isError = false) {
+        const toast = document.getElementById('toastMessage');
+        const toastText = document.getElementById('toastText');
+        toastText.textContent = text;
+        if (isError) {
+            toast.style.borderLeftColor = '#ef4444';
+        } else {
+            toast.style.borderLeftColor = '#ff8c2e';
+        }
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    }
+
+    // === Кнопки копирования ===
+    const mainCopyBtn = document.getElementById('copyMainIpBtn');
+    const mainIp = "StoneWorld.proximamp.com";
+    if(mainCopyBtn) {
+        mainCopyBtn.addEventListener('click', () => {
+            copyToClipboard(mainIp, mainCopyBtn);
+        });
+    }
+
+    const copyButtons = document.querySelectorAll('.btn-copy-mini');
+    copyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const textToCopy = btn.getAttribute('data-copy');
+            if(textToCopy) {
+                copyToClipboard(textToCopy, btn);
+            }
+        });
+    });
+
+    const ipDisplaySpan = document.getElementById('mainIpDisplay');
+    if(ipDisplaySpan) {
+        ipDisplaySpan.style.cursor = 'pointer';
+        ipDisplaySpan.addEventListener('click', () => {
+            copyToClipboard(mainIp, null);
+        });
+    }
+
+    // === Отзывы ===
+    // Загружаем сохранённые отзывы из localStorage
+    let reviews = JSON.parse(localStorage.getItem('stoneworld_reviews') || '[]');
+
+    function renderReviews() {
+        const list = document.getElementById('reviewList');
+        if (reviews.length === 0) {
+            list.innerHTML = `
+                <div class="review-empty">
+                    <i class="fas fa-comment-dots" style="font-size: 40px; opacity: 0.3; display: block; margin-bottom: 12px;"></i>
+                    Пока нет отзывов. Будь первым!
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+        // показываем последние 10 отзывов (сначала новые)
+        const sorted = [...reviews].reverse().slice(0, 10);
+        sorted.forEach(r => {
+            const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+            const time = new Date(r.timestamp).toLocaleDateString('ru-RU', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+            html += `
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="review-name">${escapeHtml(r.name)}</span>
+                        <span class="review-stars">${stars}</span>
+                    </div>
+                    <div class="review-text">${escapeHtml(r.text)}</div>
+                    <div class="review-time">${time}</div>
+                </div>
+            `;
+        });
+        list.innerHTML = html;
+    }
+
+    // Простой экранинг для безопасности
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Отправка в Discord
+    async function sendReviewToDiscord(name, rating, text) {
+        const embed = {
+            title: '⭐ Новый отзыв на StoneWorld',
+            color: 0xff8c2e,
+            fields: [
+                {
+                    name: '👤 Игрок',
+                    value: name || 'Аноним',
+                    inline: true
+                },
+                {
+                    name: '⭐ Оценка',
+                    value: '★'.repeat(rating) + '☆'.repeat(5 - rating),
+                    inline: true
+                },
+                {
+                    name: '💬 Отзыв',
+                    value: text || '(без текста)'
+                }
+            ],
+            footer: {
+                text: 'StoneWorld • Отзывы игроков'
+            },
+            timestamp: new Date().toISOString()
+        };
+
+        const payload = {
+            embeds: [embed]
+        };
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return true;
+        } catch (error) {
+            console.error('Ошибка отправки в Discord:', error);
+            return false;
+        }
+    }
+
+    // Обработчик отправки отзыва
+    document.getElementById('submitReviewBtn').addEventListener('click', async function() {
+        const nameInput = document.getElementById('reviewName');
+        const textInput = document.getElementById('reviewText');
+        const ratingInput = document.querySelector('input[name="rating"]:checked');
+
+        const name = nameInput.value.trim() || 'Аноним';
+        const text = textInput.value.trim();
+        const rating = ratingInput ? parseInt(ratingInput.value) : 0;
+
+        if (rating === 0) {
+            showToast('❌ Поставьте оценку!', true);
+            return;
+        }
+
+        if (!text) {
+            showToast('❌ Напишите текст отзыва!', true);
+            return;
+        }
+
+        // Блокируем кнопку
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+
+        // Отправляем в Discord
+        const success = await sendReviewToDiscord(name, rating, text);
+
+        if (success) {
+            // Сохраняем в localStorage
+            const newReview = {
+                name: name,
+                rating: rating,
+                text: text,
+                timestamp: Date.now()
+            };
+            reviews.push(newReview);
+            localStorage.setItem('stoneworld_reviews', JSON.stringify(reviews));
+            renderReviews();
+
+            // Очищаем форму
+            nameInput.value = '';
+            textInput.value = '';
+            if (ratingInput) ratingInput.checked = false;
+
+            showToast('✅ Отзыв отправлен в Discord!');
+        } else {
+            showToast('❌ Ошибка отправки. Попробуйте позже.', true);
+        }
+
+        // Разблокируем кнопку
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить отзыв';
+    });
+
+    // Инициализация
+    renderReviews();
+
+    // Звёзды при наведении
+    document.querySelectorAll('.rating-group label').forEach(label => {
+        label.addEventListener('mouseenter', function() {
+            const stars = this.querySelectorAll('i');
+            stars.forEach(s => s.style.color = '#ffaa60');
+        });
+        label.addEventListener('mouseleave', function() {
+            const stars = this.querySelectorAll('i');
+            if (!this.querySelector('input:checked')) {
+                stars.forEach(s => s.style.color = '#3a4060');
+            }
+        });
+    });
+</script>
+</body>
+</html>
